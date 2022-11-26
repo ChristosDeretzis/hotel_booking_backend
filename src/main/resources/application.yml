@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: christos
+    url: jdbc:postgresql://localhost:5432/booking_service_db
+    password: user91234
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgesSQLDialect
+    database-platform: postgres
+    show-sql: true
+keycloak:
+  client_secret: 3UJ5VWkcPZoOP7OZomcsVa2JRZW3mmRG
+  grant_type: client_credentials
+  realm: hotel_booking_service
+  client_id: hotel_booking_backend

@@ -1,0 +1,39 @@
+version: '3.8'
+
+volumes:
+  postgres_data:
+    driver: local
+
+services:
+  postgres:
+    image: postgres:14.1
+    volumes:
+      - type: bind
+        source: ./docker/postgres/init-sql
+        target: /docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_DB: booking_service_db
+      POSTGRES_USER: christos
+      POSTGRES_PASSWORD: user91234
+    ports:
+      - "5432:5432"
+  keycloak:
+      depends_on:
+        - postgres
+      image: quay.io/keycloak/keycloak:19.0.3
+      ports:
+        - '8000:8080'
+      volumes:
+        - ./docker/keycloak/realm-export.json:/opt/keycloak/data/import/realm.json
+      command:
+        - start-dev
+        - --import-realm
+      environment:
+        DB_VENDOR: postgres
+        DB_ADDR: postgres
+        DB_PORT: 5432
+        DB_DATABASE: booking_service_db
+        DB_SCHEMA: keycloak
+        KEYCLOAK_ADMIN: admin
+        KEYCLOAK_ADMIN_PASSWORD: admin
+        KC_HTTP_RELATIVE_PATH: '/auth'
