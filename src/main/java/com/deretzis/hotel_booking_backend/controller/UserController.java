@@ -1,13 +1,12 @@
 package com.deretzis.hotel_booking_backend.controller;
 
+import com.deretzis.hotel_booking_backend.dto.CreateUserDto;
 import com.deretzis.hotel_booking_backend.dto.ServiceAccessTokenResponseDto;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/users")
 public interface UserController {
 
-    @GetMapping("/service-token")
-    ServiceAccessTokenResponseDto getServiceAccessToken();
+    @PostMapping("/signup")
+    void createNewUser(@RequestBody CreateUserDto createUserDto);
 }

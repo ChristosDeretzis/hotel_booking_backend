@@ -31,7 +31,6 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
     implementation 'org.springframework:spring-webflux'
 	implementation 'io.projectreactor.netty:reactor-netty-http'
-	implementation 'org.hibernate:hibernate-core:6.1.5.Final'
 
 	testImplementation "org.spockframework:spock-core:2.1-groovy-3.0"
 	testImplementation "org.spockframework:spock-spring:2.1-groovy-3.0"

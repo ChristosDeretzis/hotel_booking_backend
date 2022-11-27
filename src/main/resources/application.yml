@@ -4,10 +4,10 @@ spring:
     username: christos
     url: jdbc:postgresql://localhost:5432/booking_service_db
     password: user91234
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgesSQLDialect
+#  jpa:
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgesSQLDialect
     database-platform: postgres
     show-sql: true
 keycloak:
