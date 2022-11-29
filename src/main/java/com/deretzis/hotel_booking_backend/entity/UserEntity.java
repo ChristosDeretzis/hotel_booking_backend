@@ -1,5 +1,9 @@
 package com.deretzis.hotel_booking_backend.entity;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;

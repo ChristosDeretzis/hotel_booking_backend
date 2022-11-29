@@ -29,10 +29,9 @@ public class UserServiceImpl implements UserService{
         // if there is a user throw an exception
         // else insert the user in the keycloak
         // if the keycloak insertion throws an error, then exit
-        // else insert the user in the db
+        // else insert the user in the db;
 
-        String encodedPassword = passwordEncoder.encode(createUserDto.getPassword());
-        createUserDto.setPassword(encodedPassword);
+
         userRepository.save(userMapper.convert(createUserDto));
     }
 }
