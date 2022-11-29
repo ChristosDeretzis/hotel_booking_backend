@@ -10,8 +10,14 @@ spring:
 #        dialect: org.hibernate.dialect.PostgesSQLDialect
     database-platform: postgres
     show-sql: true
-keycloak:
+my_keycloak:
   client_secret: 3UJ5VWkcPZoOP7OZomcsVa2JRZW3mmRG
   grant_type: client_credentials
   realm: hotel_booking_service
   client_id: hotel_booking_backend
+keycloak:
+  use-resource-role-mappings: false
+  realm: hotel_booking_service
+  auth-server-url: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:8000}/auth
+  resource: spring-app
+  bearer-only: true

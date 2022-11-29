@@ -32,10 +32,10 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
 
     @Autowired
     public KeycloakAdapterImpl(
-            @Value("${keycloak.realm}") String realm,
-            @Value("${keycloak.client_id}") String client_id,
-            @Value("${keycloak.client_secret}") String client_secret,
-            @Value("${keycloak.grant_type}") String grant_type) {
+            @Value("${my_keycloak.realm}") String realm,
+            @Value("${my_keycloak.client_id}") String client_id,
+            @Value("${my_keycloak.client_secret}") String client_secret,
+            @Value("${my_keycloak.grant_type}") String grant_type) {
         this.realm = realm;
         this.client_id = client_id;
         this.client_secret = client_secret;
