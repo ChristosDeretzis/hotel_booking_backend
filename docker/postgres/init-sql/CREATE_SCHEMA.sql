@@ -4,7 +4,6 @@ CREATE TABLE public.users (
                                last_name varchar(250) NULL,
                                email varchar(250) NULL,
                                username varchar(250) NULL,
-                               password varchar(250) NULL,
                                dob date NULL,
                                CONSTRAINT user_pk PRIMARY KEY (id)
 );

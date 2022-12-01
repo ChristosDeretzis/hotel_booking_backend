@@ -2,7 +2,6 @@ package com.deretzis.hotel_booking_backend.service;
 
 import com.deretzis.hotel_booking_backend.adapter.KeycloakAdapter;
 import com.deretzis.hotel_booking_backend.dto.CreateUserDto;
-import com.deretzis.hotel_booking_backend.dto.ServiceAccessTokenResponseDto;
 import com.deretzis.hotel_booking_backend.mapper.UserMapper;
 import com.deretzis.hotel_booking_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +13,14 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private final PasswordEncoder passwordEncoder;
+
+    private final KeycloakAdapter keycloakAdapter;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, KeycloakAdapter keycloakAdapter) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
-        this.passwordEncoder = passwordEncoder;
+        this.keycloakAdapter = keycloakAdapter;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService{
         // if the keycloak insertion throws an error, then exit
         // else insert the user in the db;
 
-
-        userRepository.save(userMapper.convert(createUserDto));
+        String keycloakId = keycloakAdapter.createKeycloakUser(userMapper.convertKeycloak(createUserDto));
+        userRepository.save(userMapper.convert(createUserDto, keycloakId));
     }
 }

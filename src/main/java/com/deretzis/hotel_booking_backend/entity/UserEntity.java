@@ -14,7 +14,6 @@ public class UserEntity {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(name = "first_name")
@@ -29,18 +28,23 @@ public class UserEntity {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "password")
-    private String password;
-
     @Column(name = "dob")
     private LocalDate dob;
 
-    public UserEntity(String firstName, String lastName, String email, String username, String password, LocalDate dob) {
+    public UserEntity(UUID id, String firstName, String lastName, String email, String username, LocalDate dob) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
-        this.password = password;
+        this.dob = dob;
+    }
+
+    public UserEntity(String firstName, String lastName, String email, String username, LocalDate dob) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.username = username;
         this.dob = dob;
     }
 
@@ -87,14 +91,6 @@ public class UserEntity {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public LocalDate getDob() {
         return dob;
     }
@@ -111,7 +107,6 @@ public class UserEntity {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 ", dob=" + dob +
                 '}';
     }

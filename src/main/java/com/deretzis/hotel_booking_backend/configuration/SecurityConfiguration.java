@@ -47,9 +47,4 @@ public class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter 
                 //.anyRequest()
                 .permitAll();
     }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }

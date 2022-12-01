@@ -1,4 +1,4 @@
-package com.deretzis.hotel_booking_backend.dto;
+package com.deretzis.hotel_booking_backend.keycloak;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

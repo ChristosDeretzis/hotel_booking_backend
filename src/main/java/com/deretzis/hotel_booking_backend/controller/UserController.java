@@ -1,7 +1,6 @@
 package com.deretzis.hotel_booking_backend.controller;
 
 import com.deretzis.hotel_booking_backend.dto.CreateUserDto;
-import com.deretzis.hotel_booking_backend.dto.ServiceAccessTokenResponseDto;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/users")
