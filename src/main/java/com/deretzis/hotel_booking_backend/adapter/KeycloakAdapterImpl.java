@@ -1,12 +1,20 @@
 package com.deretzis.hotel_booking_backend.adapter;
 
+import com.deretzis.hotel_booking_backend.error.AuthErrorCodes;
+import com.deretzis.hotel_booking_backend.error.AuthErrorMessage;
+import com.deretzis.hotel_booking_backend.exception.GenericKeycloakException;
+import com.deretzis.hotel_booking_backend.exception.RequestKeycloakException;
+import com.deretzis.hotel_booking_backend.exception.UnauthorizedKeycloakException;
+import com.deretzis.hotel_booking_backend.exception.UserExistsKeycloakException;
 import com.deretzis.hotel_booking_backend.keycloak.KeycloakCreateUserRequestDto;
 import com.deretzis.hotel_booking_backend.keycloak.ServiceAccessTokenResponseDto;
 import com.deretzis.hotel_booking_backend.keycloak.UserRepresentation;
 import com.deretzis.hotel_booking_backend.mapper.UserMapper;
+import org.keycloak.authorization.client.util.Http;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
@@ -69,6 +77,22 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .body(BodyInserters.fromFormData(requestBody))
                 .retrieve()
+                .onStatus(HttpStatus.UNAUTHORIZED::equals,
+                        r -> {
+                            AuthErrorMessage authErrorMessage = new AuthErrorMessage(
+                                    AuthErrorCodes.GENERIC_ERROR.getCode(),
+                                    AuthErrorCodes.GENERIC_ERROR.getMessage()
+                            );
+                            throw new GenericKeycloakException(authErrorMessage);
+                        })
+                .onStatus(HttpStatus.BAD_REQUEST::equals,
+                        r -> {
+                            AuthErrorMessage authErrorMessage = new AuthErrorMessage(
+                                    AuthErrorCodes.GENERIC_ERROR.getCode(),
+                                    AuthErrorCodes.GENERIC_ERROR.getMessage()
+                            );
+                            throw new GenericKeycloakException(authErrorMessage);
+                        })
                 .bodyToMono(ServiceAccessTokenResponseDto.class);
 
         return serviceAccessTokenMono.block();
@@ -84,6 +108,30 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
                 .headers(h -> h.setContentType(MediaType.APPLICATION_JSON))
                 .body(Mono.just(KeycloakCreateUserRequestDto), KeycloakCreateUserRequestDto.class)
                 .retrieve()
+                .onStatus(HttpStatus.UNAUTHORIZED::equals,
+                           r -> {
+                               AuthErrorMessage authErrorMessage = new AuthErrorMessage(
+                                       AuthErrorCodes.INVALID_ACCESS_TOKEN_ERROR.getCode(),
+                                       AuthErrorCodes.INVALID_ACCESS_TOKEN_ERROR.getMessage()
+                               );
+                               throw new UnauthorizedKeycloakException(authErrorMessage);
+                           })
+                .onStatus(HttpStatus.BAD_REQUEST::equals,
+                        r -> {
+                            AuthErrorMessage authErrorMessage = new AuthErrorMessage(
+                                    AuthErrorCodes.REQUEST_ERROR.getCode(),
+                                    AuthErrorCodes.REQUEST_ERROR.getMessage()
+                            );
+                            throw new RequestKeycloakException(authErrorMessage);
+                        })
+                .onStatus(HttpStatus.CONFLICT::equals,
+                        r -> {
+                            AuthErrorMessage authErrorMessage = new AuthErrorMessage(
+                                    AuthErrorCodes.USER_EXISTS_ERROR.getCode(),
+                                    AuthErrorCodes.USER_EXISTS_ERROR.getMessage()
+                            );
+                            throw new UserExistsKeycloakException(authErrorMessage);
+                        })
                 .bodyToMono(String.class)
                 .doOnError(e -> System.out.println(e.toString()))
                 .block();

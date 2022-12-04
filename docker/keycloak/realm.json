@@ -774,31 +774,6 @@
             ]
           }
         ],
-        "policies": [
-          {
-            "id": "3d60b3a1-b8e9-471e-aacc-1ed39160c5f6",
-            "name": "Default Policy",
-            "description": "A policy that grants access only for users within this realm",
-            "type": "js",
-            "logic": "POSITIVE",
-            "decisionStrategy": "AFFIRMATIVE",
-            "config": {
-              "code": "// by default, grants any permission associated with this policy\n$evaluation.grant();\n"
-            }
-          },
-          {
-            "id": "af1e255e-a472-4c29-ba1d-a5e47ef7246d",
-            "name": "Default Permission",
-            "description": "A permission that applies to the default resource type",
-            "type": "resource",
-            "logic": "POSITIVE",
-            "decisionStrategy": "UNANIMOUS",
-            "config": {
-              "defaultResourceType": "urn:hotel_booking_backend:resources:default",
-              "applyPolicies": "[\"Default Policy\"]"
-            }
-          }
-        ],
         "scopes": [],
         "decisionStrategy": "UNANIMOUS"
       }
