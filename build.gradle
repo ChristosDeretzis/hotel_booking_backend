@@ -36,6 +36,7 @@ dependencies {
 
 	testImplementation "org.spockframework:spock-core:2.1-groovy-3.0"
 	testImplementation "org.spockframework:spock-spring:2.1-groovy-3.0"
+	testImplementation "org.springframework.cloud:spring-cloud-contract-wiremock:3.1.5"
 }
 
 tasks.named('test') {
@@ -65,8 +66,13 @@ jacocoTestReport {
 	afterEvaluate {
 		classDirectories.setFrom(files(classDirectories.files.collect {
 			fileTree(dir: it, exclude: [
-					"**/config/*",
+					"**/configuration/*",
 					"**/keycloak/*",
+					"**/dto/*",
+					"**/entity/*",
+					"**/exception/*",
+					"**/error/*",
+					"**/HotelBookingBackendApplication.class"
 			])
 		}))
 	}
@@ -76,7 +82,7 @@ jacocoTestCoverageVerification {
 	violationRules {
 		rule {
 			limit {
-				minimum = 0.5
+				minimum = 0.8
 			}
 		}
 
