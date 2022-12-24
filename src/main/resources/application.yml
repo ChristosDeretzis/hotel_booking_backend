@@ -11,7 +11,7 @@ spring:
     database-platform: postgres
     show-sql: true
 my_keycloak:
-  client_secret: ut17mrrnKihvNtxmWUlNwtQym1w1rCBS
+  client_secret: YSwfd956q5TKze8aCsCiR23joPxU1TIo
   grant_type: client_credentials
   realm: hotel_booking_service
   client_id: hotel_booking_backend

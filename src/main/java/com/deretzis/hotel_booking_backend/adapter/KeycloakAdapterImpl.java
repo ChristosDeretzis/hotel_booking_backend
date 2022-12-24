@@ -12,6 +12,7 @@ import com.deretzis.hotel_booking_backend.keycloak.UserRepresentation;
 import com.deretzis.hotel_booking_backend.mapper.UserMapper;
 import org.keycloak.authorization.client.util.Http;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
@@ -48,6 +49,7 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
 
     @Autowired
     public KeycloakAdapterImpl(
+            @Qualifier("keycloakWebClient") WebClient webClient,
             @Value("${my_keycloak.realm}") String realm,
             @Value("${my_keycloak.client_id}") String client_id,
             @Value("${my_keycloak.client_secret}") String client_secret,
@@ -56,15 +58,11 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
         this.client_id = client_id;
         this.client_secret = client_secret;
         this.grant_type = grant_type;
-
-        this.webClient = WebClient
-                .builder()
-                .baseUrl(BASE_URL)
-                .build();
+        this.webClient = webClient;
 
     }
 
-    public ServiceAccessTokenResponseDto obtainServiceAccessToken() {
+    private ServiceAccessTokenResponseDto obtainServiceAccessToken() {
 
         MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
         requestBody.add(CLIENT_ID_KEY, client_id);
@@ -141,7 +139,7 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
         return keycloakId;
     }
 
-    public UserRepresentation getKeycloakUserByEmail(String email) {
+    private UserRepresentation getKeycloakUserByEmail(String email) {
         ServiceAccessTokenResponseDto serviceAccessTokenResponseDto = obtainServiceAccessToken();
 
         Mono<List<UserRepresentation>> getUsersResponse = webClient

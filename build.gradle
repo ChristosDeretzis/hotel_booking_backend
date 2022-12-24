@@ -66,8 +66,13 @@ jacocoTestReport {
 	afterEvaluate {
 		classDirectories.setFrom(files(classDirectories.files.collect {
 			fileTree(dir: it, exclude: [
-					"**/config/*",
+					"**/configuration/*",
 					"**/keycloak/*",
+					"**/dto/*",
+					"**/entity/*",
+					"**/exception/*",
+					"**/error/*",
+					"**/HotelBookingBackendApplication.class"
 			])
 		}))
 	}
@@ -77,7 +82,7 @@ jacocoTestCoverageVerification {
 	violationRules {
 		rule {
 			limit {
-				minimum = 0.5
+				minimum = 0.8
 			}
 		}
 

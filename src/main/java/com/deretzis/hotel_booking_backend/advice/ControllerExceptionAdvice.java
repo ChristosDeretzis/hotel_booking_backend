@@ -28,13 +28,13 @@ public class ControllerExceptionAdvice extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(UnauthorizedKeycloakException.class)
-    public ResponseEntity<Object> handleGenericKeycloakException(UnauthorizedKeycloakException exception, WebRequest request) {
+    public ResponseEntity<Object> handleUnauthorizedKeycloakException(UnauthorizedKeycloakException exception, WebRequest request) {
         return handleExceptionInternal(exception, exception.getAuthErrorMessage(),
                 new HttpHeaders(), HttpStatus.UNAUTHORIZED, request);
     }
 
     @ExceptionHandler(UserExistsKeycloakException.class)
-    public ResponseEntity<Object> handleGenericKeycloakException(UserExistsKeycloakException exception, WebRequest request) {
+    public ResponseEntity<Object> handleUserExistsKeycloakException(UserExistsKeycloakException exception, WebRequest request) {
         return handleExceptionInternal(exception, exception.getAuthErrorMessage(),
                 new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
