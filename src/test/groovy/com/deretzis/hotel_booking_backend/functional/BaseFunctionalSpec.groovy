@@ -12,6 +12,7 @@ import org.springframework.test.web.reactive.server.WebTestClient
 import org.testcontainers.containers.DockerComposeContainer
 import org.testcontainers.containers.wait.strategy.Wait
 import org.testcontainers.spock.Testcontainers
+import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -30,9 +31,10 @@ abstract class BaseFunctionalSpec extends Specification{
     @Autowired
     WebRequests webRequests
 
+    @Shared
     static DockerComposeContainer dockerComposeContainer
 
-    static  {
+    void setupSpec() {
         dockerComposeContainer = new DockerComposeContainer(new File("docker-compose-test.yml"))
                 .withExposedService("postgres", 5432, Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(120)))
                 .withExposedService("keycloak", 8080,Wait.forHttp("/auth").withStartupTimeout(Duration.ofSeconds(120)))
@@ -40,7 +42,6 @@ abstract class BaseFunctionalSpec extends Specification{
                 .withOptions("--compatibility")
         dockerComposeContainer.start()
     }
-
 
     @DynamicPropertySource
     public static void overrideProperties(DynamicPropertyRegistry registry) {
