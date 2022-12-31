@@ -1,6 +1,7 @@
-package com.deretzis.hotel_booking_backend.controller
+package com.deretzis.hotel_booking_backend.unit.controller
 
 import com.deretzis.hotel_booking_backend.configuration.SecurityConfiguration
+import com.deretzis.hotel_booking_backend.controller.UserControllerImpl
 import com.deretzis.hotel_booking_backend.dto.CreateUserDto
 import com.deretzis.hotel_booking_backend.service.UserServiceImpl
 import com.fasterxml.jackson.databind.ObjectMapper

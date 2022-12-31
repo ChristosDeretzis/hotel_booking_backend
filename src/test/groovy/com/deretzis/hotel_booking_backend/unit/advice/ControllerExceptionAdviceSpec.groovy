@@ -1,5 +1,6 @@
-package com.deretzis.hotel_booking_backend.advice
+package com.deretzis.hotel_booking_backend.unit.advice
 
+import com.deretzis.hotel_booking_backend.advice.ControllerExceptionAdvice
 import com.deretzis.hotel_booking_backend.error.AuthErrorMessage
 import com.deretzis.hotel_booking_backend.exception.GenericKeycloakException
 import com.deretzis.hotel_booking_backend.exception.RequestKeycloakException
