@@ -1,4 +1,4 @@
-package com.deretzis.hotel_booking_backend.service
+package com.deretzis.hotel_booking_backend.unit.service
 
 import com.deretzis.hotel_booking_backend.adapter.KeycloakAdapter
 import com.deretzis.hotel_booking_backend.dto.CreateUserDto
@@ -7,6 +7,8 @@ import com.deretzis.hotel_booking_backend.keycloak.KeycloakCreateUserRequestDto
 import com.deretzis.hotel_booking_backend.keycloak.KeycloakPasswordCredentials
 import com.deretzis.hotel_booking_backend.mapper.UserMapper
 import com.deretzis.hotel_booking_backend.repository.UserRepository
+import com.deretzis.hotel_booking_backend.service.UserService
+import com.deretzis.hotel_booking_backend.service.UserServiceImpl
 import spock.lang.Specification
 
 import java.time.LocalDate

@@ -1,8 +1,9 @@
-package com.deretzis.hotel_booking_backend.mapper
+package com.deretzis.hotel_booking_backend.unit.mapper
 
 import com.deretzis.hotel_booking_backend.dto.CreateUserDto
 import com.deretzis.hotel_booking_backend.entity.UserEntity
 import com.deretzis.hotel_booking_backend.keycloak.KeycloakCreateUserRequestDto
+import com.deretzis.hotel_booking_backend.mapper.UserMapper
 import spock.lang.Specification
 
 import java.time.LocalDate

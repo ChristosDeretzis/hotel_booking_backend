@@ -1,5 +1,7 @@
-package com.deretzis.hotel_booking_backend.adapter
+package com.deretzis.hotel_booking_backend.unit.adapter
 
+import com.deretzis.hotel_booking_backend.adapter.KeycloakAdapter
+import com.deretzis.hotel_booking_backend.adapter.KeycloakAdapterImpl
 import com.deretzis.hotel_booking_backend.configuration.KeycloakConfiguration
 import com.deretzis.hotel_booking_backend.configuration.SecurityConfiguration
 import com.deretzis.hotel_booking_backend.error.AuthErrorCodes
