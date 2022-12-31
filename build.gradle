@@ -38,9 +38,7 @@ dependencies {
 	testImplementation "org.spockframework:spock-spring:2.1-groovy-3.0"
 	testImplementation "org.springframework.cloud:spring-cloud-contract-wiremock:3.1.5"
 	testImplementation "org.testcontainers:testcontainers:1.17.3"
-	testImplementation "org.testcontainers:postgresql:1.17.3"
 	testImplementation 'org.testcontainers:spock:1.17.6'
-	implementation 'com.github.dasniko:testcontainers-keycloak:2.4.0'
 }
 
 tasks.named('test') {
