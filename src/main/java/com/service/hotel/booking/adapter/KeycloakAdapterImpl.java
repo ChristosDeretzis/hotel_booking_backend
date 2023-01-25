@@ -25,8 +25,6 @@ import reactor.core.publisher.Mono;
 
 @Component
 public class KeycloakAdapterImpl implements KeycloakAdapter {
-
-    private static final String BASE_URL = "http://localhost:8000/auth";
     private static final String SERVICE_TOKEN_ENDPOINT = "/realms/%s/protocol/openid-connect/token";
     private static final String USER_ENDPOINT = "/admin/realms/%s/users";
 

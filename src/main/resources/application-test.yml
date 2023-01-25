@@ -14,6 +14,6 @@ my_keycloak:
 keycloak:
   use-resource-role-mappings: false
   realm: hotel_booking_service
-  auth-server-url: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:8080}/auth
+  auth-server-url: ${KEYCLOAK_URL:http://localhost:8080/auth}
   resource: spring-app
   bearer-only: true
