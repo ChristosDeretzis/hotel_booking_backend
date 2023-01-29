@@ -4,6 +4,10 @@ volumes:
   postgres_data:
     driver: local
 
+networks:
+  hotel-booking-service-network:
+    driver: bridge
+
 services:
   postgres:
     image: postgres:14.1
@@ -11,6 +15,8 @@ services:
       - type: bind
         source: ./docker/postgres/init-sql
         target: /docker-entrypoint-initdb.d
+    networks:
+      - hotel-booking-service-network
     environment:
       POSTGRES_DB: booking_service_db
       POSTGRES_USER: christos
@@ -25,6 +31,8 @@ services:
         - '8080:8080'
       volumes:
         - ./docker/keycloak/realm.json:/opt/keycloak/data/import/realm.json
+      networks:
+        - hotel-booking-service-network
       command:
         - start-dev
         - --import-realm
