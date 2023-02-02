@@ -4,7 +4,31 @@ volumes:
   postgres_data:
     driver: local
 
+networks:
+  hotel-booking-service-network:
+    driver: bridge
+
 services:
+  hotel_booking_backend:
+    image: hotel_booking_backend_image
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - /data/springboot-docker-compose-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      keycloak:
+        condition: service_started
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/booking_service_db
+      SPRING_DATASOURCE_USERNAME: christos
+      SPRING_DATASOURCE_PASSWORD: user91234
+      KEYCLOAK_URL: http://keycloak:8080/auth
+    networks:
+      - hotel-booking-service-network
+
   postgres:
     image: postgres:14.1
     volumes:
@@ -15,8 +39,12 @@ services:
       POSTGRES_DB: booking_service_db
       POSTGRES_USER: christos
       POSTGRES_PASSWORD: user91234
+      KEYCLOAK_HOST: keycloak
+      KEYCLOAK_PORT: 8000
     ports:
       - "5432:5432"
+    networks:
+      - hotel-booking-service-network
   keycloak:
       depends_on:
         - postgres
@@ -37,3 +65,5 @@ services:
         KEYCLOAK_ADMIN: admin
         KEYCLOAK_ADMIN_PASSWORD: admin
         KC_HTTP_RELATIVE_PATH: '/auth'
+      networks:
+        - hotel-booking-service-network

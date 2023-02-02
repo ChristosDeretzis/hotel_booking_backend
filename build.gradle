@@ -48,6 +48,10 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+bootJar {
+	archiveFileName = "hotel_booking_backend.jar"
+}
+
 jacoco {
 	toolVersion = "0.8.8"
 	reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
