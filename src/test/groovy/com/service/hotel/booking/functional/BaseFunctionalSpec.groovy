@@ -3,10 +3,10 @@ package com.service.hotel.booking.functional
 import com.service.hotel.booking.functional.requests.WebRequests
 import com.service.hotel.booking.HotelBookingBackendApplication
 import dasniko.testcontainers.keycloak.KeycloakContainer
+import jakarta.annotation.PostConstruct
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.springframework.test.web.reactive.server.WebTestClient
@@ -15,16 +15,13 @@ import org.testcontainers.spock.Testcontainers
 import spock.lang.Shared
 import spock.lang.Specification
 
-import javax.annotation.PostConstruct
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = [HotelBookingBackendApplication])
-@AutoConfigureWebTestClient(timeout = '30000')
+@AutoConfigureWebTestClient(timeout = "300000")
 @Testcontainers
-@ActiveProfiles('test')
 abstract class BaseFunctionalSpec extends Specification {
 
     @Autowired
-    WebTestClient webTestClient
+    private WebTestClient webTestClient
 
     @Autowired
     WebRequests webRequests
@@ -37,16 +34,14 @@ abstract class BaseFunctionalSpec extends Specification {
             .withDatabaseName("booking_service_db")
 
     @Shared
-    static KeycloakContainer keycloakContainer = new KeycloakContainer("quay.io/keycloak/keycloak:19.0.3")
+    static KeycloakContainer keycloakContainer = new KeycloakContainer("quay.io/keycloak/keycloak:21.1.0")
             .withRealmImportFile("keycloak/realm.json")
             .withAdminUsername("admin")
             .withAdminPassword("admin")
-            .withContextPath("/auth")
-
 
     void setupSpec() {
-        keycloakContainer.start()
         postgreSQLContainer.start()
+        keycloakContainer.start()
     }
 
     @DynamicPropertySource
