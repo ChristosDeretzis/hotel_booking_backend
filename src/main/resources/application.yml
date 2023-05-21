@@ -14,4 +14,4 @@ my_keycloak:
 keycloak:
   use-resource-role-mappings: false
   realm: hotel_booking_service
-  auth-server-url: ${KEYCLOAK_URL:http://localhost:8080}
+  auth-server-url: ${KEYCLOAK_URL:http://localhost:8000}
