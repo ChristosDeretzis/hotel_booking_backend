@@ -48,7 +48,7 @@ services:
   keycloak:
       depends_on:
         - postgres
-      image: quay.io/keycloak/keycloak:19.0.3
+      image: quay.io/keycloak/keycloak:21.1.0
       ports:
         - '8000:8080'
       volumes:
@@ -64,6 +64,5 @@ services:
         DB_SCHEMA: keycloak
         KEYCLOAK_ADMIN: admin
         KEYCLOAK_ADMIN_PASSWORD: admin
-        KC_HTTP_RELATIVE_PATH: '/auth'
       networks:
         - hotel-booking-service-network

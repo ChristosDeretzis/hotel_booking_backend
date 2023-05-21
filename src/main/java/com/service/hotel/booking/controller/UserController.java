@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 @RequestMapping("/users")
 public interface UserController {
 
     @Operation(summary = "create a new user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "user created successfully",
-                content = { @Content }),
+                content = { @Content}),
             @ApiResponse(responseCode = "400", description = "bad request",
                 content = { @Content(mediaType = "application/json",
                     schema = @Schema(implementation = AuthErrorMessage.class))}),

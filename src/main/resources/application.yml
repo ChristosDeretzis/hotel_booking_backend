@@ -1,3 +1,17 @@
 spring:
-  profiles:
-    active: local
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: christos
+    url: jdbc:postgresql://localhost:5432/booking_service_db
+    password: user91234
+    database-platform: postgres
+    show-sql: true
+my_keycloak:
+  client_secret: YSwfd956q5TKze8aCsCiR23joPxU1TIo
+  grant_type: client_credentials
+  realm: hotel_booking_service
+  client_id: hotel_booking_backend
+keycloak:
+  use-resource-role-mappings: false
+  realm: hotel_booking_service
+  auth-server-url: ${KEYCLOAK_URL:http://localhost:8000}

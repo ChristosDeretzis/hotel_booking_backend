@@ -13,14 +13,14 @@ class UserFunctionalSpec extends BaseFunctionalSpec {
 
     def "create user"() {
         given: 'Given a new user that is registered'
-        CreateUserDto createUserDto = new CreateUserDto(
-                firstName: 'Nick',
-                lastName: 'Ioannou',
-                email: 'nick01@email.com',
-                password: 'user1234',
-                username: 'nick_pap_01',
-                dateOfBirth: LocalDate.now().minusYears(18).minusDays(1)
-        )
+            CreateUserDto createUserDto = new CreateUserDto(
+                    firstName: 'Nick',
+                    lastName: 'Ioannou',
+                    email: 'nick01@email.com',
+                    password: 'user1234',
+                    username: 'nick_pap_01',
+                    dateOfBirth: LocalDate.now().minusYears(18).minusDays(1)
+            )
 
         when: 'New user is saved in keycloak and db'
             WebTestClient.ResponseSpec responseSpec = webRequests.signupUser(createUserDto)
