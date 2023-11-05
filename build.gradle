@@ -60,7 +60,7 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation 'org.testcontainers:junit-jupiter'
 
-
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 }
 
 dependencyManagement {
@@ -73,73 +73,45 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+sourceSets {
+	integrationTest {
+		groovy {
+			compileClasspath += sourceSets.main.output + sourceSets.test.output
+			runtimeClasspath += sourceSets.main.output + sourceSets.test.output
+			srcDir 'src/integration-test/groovy'
+		}
+		resources.srcDir 'src/integration-test/resources'
+	}
+}
+
+configurations.integrationTestImplementation.extendsFrom(configurations.testImplementation)
+configurations.integrationTestRuntimeOnly.extendsFrom(configurations.testRuntimeOnly)
+
+task integrationTest(type: Test) {
+	group = 'verification'
+	useJUnitPlatform()
+
+	testClassesDirs = sourceSets.integrationTest.output.classesDirs
+	classpath = sourceSets.integrationTest.runtimeClasspath
+
+	shouldRunAfter 'test'
+}
+
 bootJar {
 	archiveFileName = "hotel_booking_backend.jar"
 }
 
-jacoco {
-	toolVersion = "0.8.8"
-	reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
-}
-
 test {
 	finalizedBy jacocoTestReport
+    exclude "**/*FunctionalSpec*"
 }
 
-jacocoTestReport {
-	dependsOn test
+tasks.withType(Test) {
+	useJUnitPlatform()
 }
 
-jacocoTestReport {
-	reports {
-		xml.required = false
-		csv.required = false
-		html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
-	}
+apply from: rootProject.file('gradle/jacoco.gradle')
 
-	afterEvaluate {
-		classDirectories.setFrom(files(classDirectories.files.collect {
-			fileTree(dir: it, exclude: [
-					"**/configuration/*",
-					"**/keycloak/*",
-					"**/dto/*",
-					"**/entity/*",
-					"**/exception/*",
-					"**/error/*",
-					"**/HotelBookingBackendApplication.class"
-			])
-		}))
-	}
-}
-
-jacocoTestCoverageVerification {
-	violationRules {
-		rule {
-			limit {
-				minimum = 0.8
-			}
-		}
-
-		rule {
-			enabled = false
-			element = 'CLASS'
-			includes = ['org.gradle.*']
-
-			limit {
-				counter = 'LINE'
-				value = 'TOTALCOUNT'
-				maximum = 0.3
-			}
-		}
-	}
-}
-
-test {
-	jacoco {
-		destinationFile = layout.buildDirectory.file('jacoco/jacocoTest.exec').get().asFile
-		classDumpDir = layout.buildDirectory.dir('jacoco/classpathdumps').get().asFile
-	}
-}
 
 
 checkstyle {

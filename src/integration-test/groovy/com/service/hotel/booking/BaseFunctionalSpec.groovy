@@ -1,7 +1,6 @@
-package com.service.hotel.booking.functional
+package com.service.hotel.booking
 
-import com.service.hotel.booking.functional.requests.WebRequests
-import com.service.hotel.booking.HotelBookingBackendApplication
+import com.service.hotel.booking.requests.WebRequests
 import dasniko.testcontainers.keycloak.KeycloakContainer
 import jakarta.annotation.PostConstruct
 import org.springframework.beans.factory.annotation.Autowired

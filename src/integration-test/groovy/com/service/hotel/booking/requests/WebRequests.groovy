@@ -1,4 +1,4 @@
-package com.service.hotel.booking.functional.requests
+package com.service.hotel.booking.requests
 
 import com.service.hotel.booking.dto.CreateUserDto
 import org.springframework.http.MediaType

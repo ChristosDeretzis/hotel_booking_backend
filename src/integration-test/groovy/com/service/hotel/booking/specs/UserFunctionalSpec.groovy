@@ -1,9 +1,9 @@
-package com.service.hotel.booking.functional.tests
+package com.service.hotel.booking.specs
 
+import com.service.hotel.booking.BaseFunctionalSpec
 import com.service.hotel.booking.dto.CreateUserDto
 import com.service.hotel.booking.error.AuthErrorCodes
 import com.service.hotel.booking.error.AuthErrorMessage
-import com.service.hotel.booking.functional.BaseFunctionalSpec
 import org.springframework.http.HttpStatus
 import org.springframework.test.web.reactive.server.WebTestClient
 

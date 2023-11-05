@@ -1,4 +1,4 @@
-package com.service.hotel.booking.functional.requests
+package com.service.hotel.booking.requests
 
 import org.springframework.stereotype.Component
 
